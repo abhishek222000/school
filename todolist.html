@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+
+    <title>JavaScript Todo List</title>
+<style>
+    body{
+        font-family: "Poppins", sans-serif;
+        background-color: red;
+    }
+    h1 {
+        text-align: center;
+        font-size: 50px;
+        color: green;
+        font-weight: bold;
+    }
+    .container{
+        padding: 10px;
+        border: 1px solid #BCB9B8;
+        width:40%;
+        margin:auto;
+    }
+    .container .input{
+        width: 87%;
+        height: 20px;
+    }
+    .container .btn{
+        width: 50px;
+        height: 25px;
+    }
+    .container ul{
+        list-style: none;
+        padding: 0px;
+    }
+    .container li{
+        color: yellow;
+    }
+    .container li a{
+        float: right;
+        color: #000;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .container #error{
+        color: red;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+    <h1>TODO LIST</h1>
+    <div class="container">
+        <ul id="box"></ul>
+        <input type="text" id="name" class="input" />
+        <input type="button" value="Add" id="btnclick" class="btn" onclick="addMore()"/>
+        <span id="error"></span>
+    </div>
+    <script>
+        function addMore() {
+            document.getElementById('error').innerHTML = "";
+            let name = document.getElementById('name').value;
+            if (name == '') {
+                document.getElementById('error').innerHTML = "Please enter value";
+            }
+            else {
+                let box = document.getElementById('box');
+
+                let li = document.createElement('li');
+                li.textContent = name;
+                let a = document.createElement('a');
+                a.textContent = "REMOVE";
+                a.href = "javascript:void(0)";
+                a.className = "remove";
+                li.appendChild(a);
+                let pos = box.firstElementChild;
+                if (pos == null) {
+                    box.appendChild(li);
+                } else {
+                    box.insertBefore(li, pos);
+                }
+            }
+            document.getElementById('name').value = "";
+        }
+        let btn = document.querySelector('ul');
+        btn.addEventListener('click', function (e) {
+            let box = document.getElementById('box');
+            let li = e.target.parentNode;
+            box.removeChild(li);
+        });
+    </script>
+</body>
+</html>
